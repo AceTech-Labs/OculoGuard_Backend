@@ -1,6 +1,6 @@
 # oculoguard_mobile_app_flutter
 
-A new Flutter project.
+Mobile App developed with Flutter for OculoGuard.
 
 ## Getting Started
 
