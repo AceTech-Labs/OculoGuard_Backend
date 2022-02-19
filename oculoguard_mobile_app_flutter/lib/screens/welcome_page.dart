@@ -7,6 +7,8 @@ import '../widgets/widget.dart';
 class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -16,15 +18,15 @@ class WelcomePage extends StatelessWidget {
               Flexible(
                 child: Column(
                   children: [
-                    // Center(
-                    //   child: Container(
-                    //     width: MediaQuery.of(context).size.width * 0.8,
-                    //     child: const Image(
-                    //       image:
-                    //           AssetImage('assets/images/team_illustration.png'),
-                    //     ),
-                    //   ),
-                    // ),
+                    Center(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        child: const CircleAvatar(
+                          radius: 150,
+                          backgroundImage: AssetImage("assets/OculoGuard.png"),
+                        ),
+                      ),
+                    ),
                     const SizedBox(
                       height: 20,
                     ),
@@ -45,7 +47,7 @@ class WelcomePage extends StatelessWidget {
                   color: Colors.grey[850],
                   borderRadius: BorderRadius.circular(18),
                 ),
-                child: Row(
+                child: Column(
                   children: [
                     Expanded(
                       child: MyTextButton(
