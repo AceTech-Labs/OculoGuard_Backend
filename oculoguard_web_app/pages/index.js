@@ -1,3 +1,7 @@
 export default function Home() {
-  return <>Say My Name</>;
+  return (
+    <>
+      <p style={{}}>Say my name</p>
+    </>
+  );
 }
