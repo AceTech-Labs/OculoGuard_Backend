@@ -47,7 +47,7 @@ class WelcomePage extends StatelessWidget {
                   color: Colors.grey[850],
                   borderRadius: BorderRadius.circular(18),
                 ),
-                child: Column(
+                child: Row(
                   children: [
                     Expanded(
                       child: MyTextButton(
