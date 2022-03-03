@@ -4,15 +4,15 @@ import '../constants.dart';
 class MyTextButton extends StatelessWidget {
   const MyTextButton({
     Key? key,
-    @required this.buttonName,
-    @required this.onTap,
-    @required this.bgColor,
-    @required this.textColor,
+    required this.buttonName,
+    required this.onTap,
+    required this.bgColor,
+    required this.textColor,
   }) : super(key: key);
-  final String? buttonName;
-  final VoidCallback? onTap;
-  final Color? bgColor;
-  final Color? textColor;
+  final String buttonName;
+  final VoidCallback onTap;
+  final Color bgColor;
+  final Color textColor;
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +29,11 @@ class MyTextButton extends StatelessWidget {
             (states) => Colors.black12,
           ),
         ),
-        onPressed: onTap,
+        onPressed: () {
+          onTap();
+        },
         child: Text(
-          buttonName!,
+          buttonName,
           style: kButtonText.copyWith(color: textColor),
         ),
       ),

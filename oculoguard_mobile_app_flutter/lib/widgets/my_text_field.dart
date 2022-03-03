@@ -5,6 +5,7 @@ import '../constants.dart';
 class MyTextField extends StatelessWidget {
   const MyTextField({
     Key? key,
+    required this.boderColor,
     @required this.hintText,
     @required this.inputType,
     @required this.controller,
@@ -12,6 +13,7 @@ class MyTextField extends StatelessWidget {
   final String? hintText;
   final TextInputType? inputType;
   final TextEditingController? controller;
+  final Color boderColor;
 
   @override
   Widget build(BuildContext context) {

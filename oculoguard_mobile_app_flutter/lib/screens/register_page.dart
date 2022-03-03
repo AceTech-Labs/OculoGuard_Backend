@@ -9,6 +9,16 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   bool passwordVisibility = true;
+  bool passwordVisibility2 = true;
+
+  Color borderColor = Colors.white;
+  Color borderColor_2 = Colors.white;
+  Color borderColor_3 = Colors.white;
+  Color borderColor_4 = Colors.white;
+
+  final TextEditingController _pass = TextEditingController();
+  final TextEditingController _passAgain = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,23 +58,32 @@ class _RegisterPageState extends State<RegisterPage> {
                           const SizedBox(
                             height: 50,
                           ),
-                          const MyTextField(
-                            hintText: 'Name',
-                            inputType: TextInputType.name,
-                          ),
-                          const MyTextField(
+                          // const MyTextField(
+                          //   hintText: 'Name',
+                          //   inputType: TextInputType.name,
+                          // ),
+                          MyTextField(
+                            boderColor: borderColor,
                             hintText: 'Email',
                             inputType: TextInputType.emailAddress,
                           ),
-                          const MyTextField(
-                            hintText: 'Phone',
-                            inputType: TextInputType.phone,
-                          ),
                           MyPasswordField(
+                            name: "Password",
+                            controller: _pass,
                             isPasswordVisible: passwordVisibility,
                             onTap: () {
                               setState(() {
                                 passwordVisibility = !passwordVisibility;
+                              });
+                            },
+                          ),
+                          MyPasswordField(
+                            name: "Re-enter password",
+                            controller: _passAgain,
+                            isPasswordVisible: passwordVisibility2,
+                            onTap: () {
+                              setState(() {
+                                passwordVisibility2 = !passwordVisibility2;
                               });
                             },
                           )

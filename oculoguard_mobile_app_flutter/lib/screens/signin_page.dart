@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../constants.dart';
@@ -11,6 +12,12 @@ class SignInPage extends StatefulWidget {
 
 class _SignInPageState extends State<SignInPage> {
   bool isPasswordVisible = true;
+  Color borderColor_1 = Colors.white;
+  Color borderColor_2 = Colors.white;
+
+  final TextEditingController _mail = TextEditingController();
+  final TextEditingController _pass = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,11 +62,15 @@ class _SignInPageState extends State<SignInPage> {
                           const SizedBox(
                             height: 60,
                           ),
-                          const MyTextField(
+                          MyTextField(
+                            boderColor: borderColor_1,
+                            controller: _mail,
                             hintText: 'Phone, email or username',
                             inputType: TextInputType.text,
                           ),
                           MyPasswordField(
+                            name: "Password",
+                            controller: _pass,
                             isPasswordVisible: isPasswordVisible,
                             onTap: () {
                               setState(() {
@@ -100,7 +111,21 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                     MyTextButton(
                       buttonName: 'Sign In',
-                      onTap: () {},
+                      onTap: () async {
+                        final pass = _pass.text.trim();
+                        final mail = _mail.text.trim();
+
+                        try {
+                          await FirebaseAuth.instance
+                              .signInWithEmailAndPassword(
+                                  email: mail, password: pass);
+                        } on FirebaseAuthException catch (e) {
+                          if (e.code == "user-not-found") {
+                          } else if (e.code == "wrong-password") {}
+                        } catch (e) {
+                          print(e);
+                        }
+                      },
                       bgColor: Colors.white,
                       textColor: Colors.black87,
                     ),
