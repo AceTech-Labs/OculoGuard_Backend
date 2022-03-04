@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../constants.dart';
 import '../screens/screen.dart';
 import '../widgets/widget.dart';
+import 'home.dart';
 
 class SignInPage extends StatefulWidget {
   @override
@@ -112,18 +113,38 @@ class _SignInPageState extends State<SignInPage> {
                     MyTextButton(
                       buttonName: 'Sign In',
                       onTap: () async {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Home(),
+                            ));
                         final pass = _pass.text.trim();
                         final mail = _mail.text.trim();
-
                         try {
                           await FirebaseAuth.instance
                               .signInWithEmailAndPassword(
-                                  email: mail, password: pass);
+                                  email: mail, password: pass)
+                              .then((value) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => Home(),
+                                ));
+                          });
                         } on FirebaseAuthException catch (e) {
                           if (e.code == "user-not-found") {
-                          } else if (e.code == "wrong-password") {}
+                            setState(() {
+                              print("dsd");
+                              borderColor_1 = Colors.red;
+                            });
+                          } else if (e.code == "wrong-password") {
+                            setState(() {
+                              print("dsd");
+                              borderColor_2 = Colors.red;
+                            });
+                          }
                         } catch (e) {
-                          print(e);
+                          print("error");
                         }
                       },
                       bgColor: Colors.white,

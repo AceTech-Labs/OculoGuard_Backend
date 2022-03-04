@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>662329116901-1f4blciqpr15epglvbkm3ebbtmdpung4.apps.googleusercontent.com</string>
+	<string>554127335861-5osq3ek6ed54rsetk5aelql8arps16me.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.662329116901-1f4blciqpr15epglvbkm3ebbtmdpung4</string>
+	<string>com.googleusercontent.apps.554127335861-5osq3ek6ed54rsetk5aelql8arps16me</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBAq3hGJYikv7YooIWNys-pm1FgKalrPs4</string>
+	<string>AIzaSyAcJ-sq5ZXu4r7GWQr4jiX1wIYQN90MOv0</string>
 	<key>GCM_SENDER_ID</key>
-	<string>662329116901</string>
+	<string>554127335861</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.heartMateFirebase</string>
+	<string>com.example.oculoguardMobileAppFlutter</string>
 	<key>PROJECT_ID</key>
-	<string>fir-demo-ebdfd</string>
+	<string>oculoguard</string>
 	<key>STORAGE_BUCKET</key>
-	<string>fir-demo-ebdfd.appspot.com</string>
+	<string>oculoguard.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:662329116901:ios:13f7f378881e2386106c0c</string>
+	<string>1:554127335861:ios:e73b1c8afed326f85ff9fc</string>
 </dict>
 </plist>
