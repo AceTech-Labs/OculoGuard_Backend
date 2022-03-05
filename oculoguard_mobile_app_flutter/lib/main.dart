@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Sign In Sign Up Ui',
       theme: ThemeData(
-        textTheme: TextTheme().copyWith(),
+        textTheme: TextTheme(),
         scaffoldBackgroundColor: kBackgroundColor,
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,

@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:oculoguard_mobile_app_flutter/widgets/social_media_Icon.dart';
 import '../constants.dart';
 import '../screens/screen.dart';
 import '../widgets/widget.dart';
@@ -21,6 +23,7 @@ class _SignInPageState extends State<SignInPage> {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kBackgroundColor,
@@ -44,8 +47,7 @@ class _SignInPageState extends State<SignInPage> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Flexible(
-                      fit: FlexFit.loose,
+                    Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -70,15 +72,65 @@ class _SignInPageState extends State<SignInPage> {
                             inputType: TextInputType.text,
                           ),
                           MyPasswordField(
+                            borderColor: borderColor_2,
                             name: "Password",
                             controller: _pass,
                             isPasswordVisible: isPasswordVisible,
                             onTap: () {
                               setState(() {
                                 isPasswordVisible = !isPasswordVisible;
+                                setDefault();
                               });
                             },
                           ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              GestureDetector(
+                                onTap: () {},
+                                child: Text("Forgot your password?",
+                                    style: kBodyText.copyWith(
+                                        color: Colors.white)),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          MyTextButton(
+                            buttonName: 'Sign In',
+                            onTap: () async {
+                              signIn();
+                            },
+                            bgColor: Colors.white,
+                            textColor: Colors.black87,
+                          ),
+                          verticalBox(size.height * 0.05),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Text(
+                                "Or continue with",
+                                style: kBodyText,
+                              ),
+                            ],
+                          ),
+                          verticalBox(size.height * 0.05),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SocialIcon(
+                                icon: FontAwesomeIcons.google,
+                                onTap: () {},
+                                size: 20,
+                              ),
+                              SocialIcon(
+                                icon: FontAwesomeIcons.facebook,
+                                onTap: () {},
+                                size: 20,
+                              ),
+                            ],
+                          )
                         ],
                       ),
                     ),
@@ -107,49 +159,6 @@ class _SignInPageState extends State<SignInPage> {
                         )
                       ],
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    MyTextButton(
-                      buttonName: 'Sign In',
-                      onTap: () async {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Home(),
-                            ));
-                        final pass = _pass.text.trim();
-                        final mail = _mail.text.trim();
-                        try {
-                          await FirebaseAuth.instance
-                              .signInWithEmailAndPassword(
-                                  email: mail, password: pass)
-                              .then((value) {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => Home(),
-                                ));
-                          });
-                        } on FirebaseAuthException catch (e) {
-                          if (e.code == "user-not-found") {
-                            setState(() {
-                              print("dsd");
-                              borderColor_1 = Colors.red;
-                            });
-                          } else if (e.code == "wrong-password") {
-                            setState(() {
-                              print("dsd");
-                              borderColor_2 = Colors.red;
-                            });
-                          }
-                        } catch (e) {
-                          print("error");
-                        }
-                      },
-                      bgColor: Colors.white,
-                      textColor: Colors.black87,
-                    ),
                   ],
                 ),
               ),
@@ -158,5 +167,43 @@ class _SignInPageState extends State<SignInPage> {
         ),
       ),
     );
+  }
+
+  Future<void> signIn() async {
+    final pass = _pass.text.trim();
+    final mail = _mail.text.trim();
+    try {
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: mail, password: pass)
+          .then((value) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Home(),
+            ));
+      });
+    } on FirebaseAuthException catch (e) {
+      print(e);
+      if (e.code == "user-not-found") {
+        setState(() {
+          borderColor_1 = Colors.red;
+        });
+      } else if (e.code == "wrong-password") {
+        setState(() {
+          borderColor_2 = Colors.red;
+        });
+      } else if (e.code == "invalid-email") {
+        setState(() {
+          borderColor_1 = Colors.red;
+        });
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void setDefault() {
+    borderColor_1 = Colors.white;
+    borderColor_2 = Colors.white;
   }
 }

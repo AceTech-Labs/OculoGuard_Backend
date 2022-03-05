@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import '../constants.dart';
 
-class MyPasswordField extends StatelessWidget {
-  const MyPasswordField({
+class MyPasswordField extends StatefulWidget {
+  MyPasswordField({
     Key? key,
+    required this.borderColor,
     required this.controller,
     required this.isPasswordVisible,
     required this.onTap,
@@ -14,17 +15,28 @@ class MyPasswordField extends StatelessWidget {
   final Function onTap;
   final TextEditingController controller;
   final String name;
+  Color borderColor;
 
+  @override
+  State<MyPasswordField> createState() => _MyPasswordFieldState();
+}
+
+class _MyPasswordFieldState extends State<MyPasswordField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: TextField(
-        controller: controller,
+        onTap: () {
+          setState(() {
+            widget.borderColor = Colors.white;
+          });
+        },
+        controller: widget.controller,
         style: kBodyText.copyWith(
           color: Colors.white,
         ),
-        obscureText: isPasswordVisible,
+        obscureText: widget.isPasswordVisible,
         keyboardType: TextInputType.text,
         textInputAction: TextInputAction.done,
         decoration: InputDecoration(
@@ -34,27 +46,29 @@ class MyPasswordField extends StatelessWidget {
               splashColor: Colors.transparent,
               highlightColor: Colors.transparent,
               onPressed: () {
-                onTap();
+                widget.onTap();
               },
               icon: Icon(
-                isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                widget.isPasswordVisible
+                    ? Icons.visibility
+                    : Icons.visibility_off,
                 color: Colors.grey,
               ),
             ),
           ),
-          contentPadding: EdgeInsets.all(20),
-          hintText: name,
+          contentPadding: const EdgeInsets.all(20),
+          hintText: widget.name,
           hintStyle: kBodyText,
           enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
-              color: Colors.grey,
+            borderSide: BorderSide(
+              color: widget.borderColor,
               width: 1,
             ),
             borderRadius: BorderRadius.circular(18),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
-              color: Colors.white,
+            borderSide: BorderSide(
+              color: widget.borderColor,
               width: 1,
             ),
             borderRadius: BorderRadius.circular(18),

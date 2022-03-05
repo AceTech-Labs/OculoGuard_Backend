@@ -23,3 +23,9 @@ const kButtonText = TextStyle(
 
 const kBodyText2 =
     TextStyle(fontSize: 28, fontWeight: FontWeight.w500, color: Colors.white);
+
+Widget verticalBox(size) {
+  return SizedBox(
+    height: size,
+  );
+}

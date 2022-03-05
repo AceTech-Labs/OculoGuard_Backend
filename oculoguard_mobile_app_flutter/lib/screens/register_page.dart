@@ -1,4 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:oculoguard_mobile_app_flutter/screens/home.dart';
+import 'package:oculoguard_mobile_app_flutter/widgets/social_media_Icon.dart';
 import '../widgets/widget.dart';
 import '../constants.dart';
 
@@ -11,16 +15,25 @@ class _RegisterPageState extends State<RegisterPage> {
   bool passwordVisibility = true;
   bool passwordVisibility2 = true;
 
-  Color borderColor = Colors.white;
+  Color borderColor_1 = Colors.white;
   Color borderColor_2 = Colors.white;
   Color borderColor_3 = Colors.white;
-  Color borderColor_4 = Colors.white;
 
+  final TextEditingController _mail = TextEditingController();
   final TextEditingController _pass = TextEditingController();
   final TextEditingController _passAgain = TextEditingController();
 
   @override
+  void dispose() {
+    _pass.dispose();
+    _passAgain.dispose();
+    _mail.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kBackgroundColor,
@@ -63,29 +76,75 @@ class _RegisterPageState extends State<RegisterPage> {
                           //   inputType: TextInputType.name,
                           // ),
                           MyTextField(
-                            boderColor: borderColor,
+                            controller: _mail,
+                            boderColor: borderColor_1,
                             hintText: 'Email',
                             inputType: TextInputType.emailAddress,
                           ),
                           MyPasswordField(
+                            borderColor: borderColor_2,
                             name: "Password",
                             controller: _pass,
                             isPasswordVisible: passwordVisibility,
                             onTap: () {
                               setState(() {
                                 passwordVisibility = !passwordVisibility;
+                                setDefault();
                               });
                             },
                           ),
                           MyPasswordField(
+                            borderColor: borderColor_3,
                             name: "Re-enter password",
                             controller: _passAgain,
                             isPasswordVisible: passwordVisibility2,
                             onTap: () {
                               setState(() {
                                 passwordVisibility2 = !passwordVisibility2;
+                                setDefault();
                               });
                             },
+                          ),
+                          verticalBox(
+                            size.height * 0.03,
+                          ),
+                          MyTextButton(
+                            buttonName: 'SignUp',
+                            onTap: () {
+                              signUp();
+                            },
+                            bgColor: Colors.white,
+                            textColor: Colors.black87,
+                          ),
+                          verticalBox(
+                            size.height * 0.04,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Text(
+                                "Or Sign up with",
+                                style: kBodyText,
+                              )
+                            ],
+                          ),
+                          verticalBox(
+                            size.height * 0.05,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SocialIcon(
+                                icon: FontAwesomeIcons.google,
+                                onTap: () {},
+                                size: 20,
+                              ),
+                              SocialIcon(
+                                icon: Icons.phone,
+                                onTap: () {},
+                                size: 20,
+                              ),
+                            ],
                           )
                         ],
                       ),
@@ -108,12 +167,6 @@ class _RegisterPageState extends State<RegisterPage> {
                     const SizedBox(
                       height: 20,
                     ),
-                    MyTextButton(
-                      buttonName: 'Register',
-                      onTap: () {},
-                      bgColor: Colors.white,
-                      textColor: Colors.black87,
-                    )
                   ],
                 ),
               ),
@@ -122,5 +175,49 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ),
     );
+  }
+
+  Future<void> signUp() async {
+    final mail = _mail.text.trim();
+
+    if (_pass.text.trim() == _passAgain.text.trim()) {
+      try {
+        await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(
+                email: mail, password: _pass.text.trim())
+            .then((value) => Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => Home())));
+      } on FirebaseAuthException catch (e) {
+        final code = e.code;
+        if (code == "weak-password") {
+          setState(() {
+            borderColor_2 = Colors.red;
+            borderColor_3 = Colors.red;
+            _pass.clear();
+            _passAgain.clear();
+          });
+        } else if (code == "email-already-in-use") {
+          setState(() {
+            borderColor_1 = Colors.red;
+            _mail.clear();
+          });
+        }
+      } catch (e) {
+        print(e);
+      }
+    } else {
+      setState(() {
+        borderColor_2 = Colors.red;
+        borderColor_3 = Colors.red;
+        _pass.clear();
+        _passAgain.clear();
+      });
+    }
+  }
+
+  void setDefault() {
+    borderColor_1 = Colors.white;
+    borderColor_2 = Colors.white;
+    borderColor_3 = Colors.white;
   }
 }
