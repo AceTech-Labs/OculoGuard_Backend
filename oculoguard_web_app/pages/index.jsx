@@ -6,6 +6,7 @@ export default function Home() {
   useEffect(() => {
     console.log(color);
   }, [color]);
+  console.log("sdsa");
 
   return (
     <>
@@ -18,6 +19,8 @@ export default function Home() {
       >
         Click{color}
       </button>
+      <br />
+      <button onClick={() => {}}>sx</button>
     </>
   );
 }
