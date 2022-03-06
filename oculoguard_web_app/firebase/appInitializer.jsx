@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 
 const credentials = {
-  apiKey: "AIzaSyBc9oCslwTk7pYqBROBh2-EXsmhSqgCoyk",
+  apiKey: process.env.API_KEY,
   authDomain: "oculoguard.firebaseapp.com",
   projectId: "oculoguard",
   storageBucket: "oculoguard.appspot.com",
@@ -11,3 +11,5 @@ const credentials = {
 };
 
 const app = initializeApp(credentials);
+
+export default app;
