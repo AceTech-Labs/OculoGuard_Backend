@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import SideBar from "../components/sidebar";
+import Head from "next/head";
+import AuthUI from "./auth";
 
 export default function Home() {
   const [color, setColor] = useState(1);
@@ -9,18 +11,10 @@ export default function Home() {
   console.log("sdsa");
 
   return (
-    <>
+    <div className="bg-red flex flex-col">
+      <Head>OculoGuard</Head>
+      <AuthUI></AuthUI>
       <SideBar></SideBar>
-      Dont touch m e
-      <button
-        onClick={() => {
-          setColor(color + 1);
-        }}
-      >
-        Click{color}
-      </button>
-      <br />
-      <button onClick={() => {}}>sx</button>
-    </>
+    </div>
   );
 }

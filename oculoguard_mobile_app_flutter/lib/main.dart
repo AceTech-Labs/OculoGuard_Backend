@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Sign In Sign Up Ui',
+      title: 'OculoGuard',
       theme: ThemeData(
         textTheme: TextTheme(),
         scaffoldBackgroundColor: kBackgroundColor,
