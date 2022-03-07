@@ -4,7 +4,7 @@ import { useState } from "react";
 const AuthUI = () => {
   return (
     <>
-      <div>Say my name</div>
+      <div className="h-screen text-red-200 bg-slate-800">Say my name</div>
     </>
   );
 };

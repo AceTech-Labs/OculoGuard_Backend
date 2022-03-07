@@ -1,4 +1,7 @@
 import { initializeApp } from "firebase/app";
+import { getFireStor } from "firebase/firestore";
+import { getStorage } from "firebase/storage ";
+import Firebase from "firebase/app";
 
 const credentials = {
   apiKey: process.env.API_KEY,
@@ -10,6 +13,8 @@ const credentials = {
   measurementId: "G-LESJ69QM8L",
 };
 
-const app = initializeApp(credentials);
+if (!Firebase.getApps.length) {
+  const app = initializeApp(credentials);
+}
 
 export default app;
