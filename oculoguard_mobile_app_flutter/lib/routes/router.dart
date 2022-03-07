@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:oculoguard_mobile_app_flutter/screens/home.dart';
-import 'package:oculoguard_mobile_app_flutter/screens/reset_passwword.dart';
 import 'package:oculoguard_mobile_app_flutter/screens/screen.dart';
-import 'package:oculoguard_mobile_app_flutter/screens/signin_page.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -25,12 +21,18 @@ class RouteGenerator {
           builder: (builder) => ResetPassword(),
         );
       case "/home":
-        return MaterialPageRoute(builder: (builder) => Home());
+        return MaterialPageRoute(
+          builder: (builder) => Home(),
+        );
       default:
         return errorRoute();
     }
   }
 
-  static Route<dynamic> errorRoute() =>
-      MaterialPageRoute(builder: (_) => Scaffold());
+  static Route<dynamic> errorRoute() => MaterialPageRoute(
+      builder: (_) => const Scaffold(
+            body: Center(
+              child: Text("Error Route"),
+            ),
+          ));
 }

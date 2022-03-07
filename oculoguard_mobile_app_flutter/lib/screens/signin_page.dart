@@ -176,11 +176,7 @@ class _SignInPageState extends State<SignInPage> {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: mail, password: pass)
           .then((value) {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => Home(),
-            ));
+        Navigator.pushNamed(context, "/home");
       });
     } on FirebaseAuthException catch (e) {
       print(e);
