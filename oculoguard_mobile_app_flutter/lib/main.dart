@@ -16,11 +16,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'OculoGuard',
-      theme: ThemeData(
-        textTheme: TextTheme(),
+      theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: kBackgroundColor,
-        primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        brightness: Brightness.dark,
       ),
       home: WelcomePage(),
       initialRoute: "/",

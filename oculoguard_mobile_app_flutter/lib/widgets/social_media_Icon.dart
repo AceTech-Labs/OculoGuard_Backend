@@ -18,13 +18,13 @@ class SocialIcon extends StatelessWidget {
       padding: EdgeInsets.symmetric(
         horizontal: size,
       ),
-      child: GestureDetector(
-        onTap: () {
+      child: IconButton(
+        onPressed: () {
           onTap();
         },
-        child: Icon(
+        icon: Icon(
           icon,
-          color: Colors.white,
+          color: Colors.red,
         ),
       ),
     );

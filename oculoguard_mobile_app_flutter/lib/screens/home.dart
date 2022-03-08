@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:oculoguard_mobile_app_flutter/widgets/sidedrawer/sidedrawer.dart';
 
 class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
@@ -22,20 +23,22 @@ class _HomeState extends State<Home> {
       onWillPop: () async => false,
       child: Scaffold(
         appBar: AppBar(
-          automaticallyImplyLeading: false,
+          // automaticallyImplyLeading: false,
           elevation: 0,
           backgroundColor: Colors.transparent,
+          title: Text("OculoGuard"),
         ),
+        drawer: SideDrawer(),
         body: SafeArea(
             child: Center(
-          child: GestureDetector(
-            onTap: () async {
+          child: TextButton(
+            onPressed: () async {
               await FirebaseAuth.instance.signOut();
+              Navigator.pop(
+                context,
+              );
             },
-            child: const Text(
-              "Log Out",
-              style: TextStyle(color: Colors.white),
-            ),
+            child: const Text("Log Out"),
           ),
         )),
       ),

@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:oculoguard_mobile_app_flutter/screens/home.dart';
 import 'package:oculoguard_mobile_app_flutter/widgets/social_media_Icon.dart';
 import '../widgets/widget.dart';
 import '../constants.dart';
@@ -139,11 +138,11 @@ class _RegisterPageState extends State<RegisterPage> {
                                 onTap: () {},
                                 size: 20,
                               ),
-                              SocialIcon(
-                                icon: Icons.phone,
-                                onTap: () {},
-                                size: 20,
-                              ),
+                              // SocialIcon(
+                              //   icon: Icons.phone,
+                              //   onTap: () {},
+                              //   size: 20,
+                              // ),
                             ],
                           )
                         ],
@@ -177,19 +176,25 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
+  SnackBar bar(Widget text) {
+    return SnackBar(content: text);
+  }
+
   Future<void> signUp() async {
     final mail = _mail.text.trim();
 
-    if (_pass.text.trim() == _passAgain.text.trim()) {
+    if (_pass.text.trim() == _passAgain.text.trim() &&
+        (_mail.text.isNotEmpty)) {
       try {
         await FirebaseAuth.instance
             .createUserWithEmailAndPassword(
                 email: mail, password: _pass.text.trim())
-            .then((value) => Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => Home())));
+            .then((value) => Navigator.pushNamed(context, "/home"));
       } on FirebaseAuthException catch (e) {
         final code = e.code;
         if (code == "weak-password") {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(bar(const Text("Weak Password")));
           setState(() {
             borderColor_2 = Colors.red;
             borderColor_3 = Colors.red;

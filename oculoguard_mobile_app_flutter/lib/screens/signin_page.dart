@@ -2,11 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:oculoguard_mobile_app_flutter/providers/google.dart';
 import 'package:oculoguard_mobile_app_flutter/widgets/social_media_Icon.dart';
 import '../constants.dart';
 import '../screens/screen.dart';
 import '../widgets/widget.dart';
-import 'home.dart';
 
 class SignInPage extends StatefulWidget {
   @override
@@ -86,12 +86,15 @@ class _SignInPageState extends State<SignInPage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              GestureDetector(
-                                onTap: () {},
-                                child: Text("Forgot your password?",
-                                    style: kBodyText.copyWith(
-                                        color: Colors.white)),
-                              ),
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pushNamed(
+                                        context, "/resetPassword");
+                                  },
+                                  child: const Text(
+                                    "Forgot your password ?",
+                                    style: kBodyText,
+                                  ))
                             ],
                           ),
                           const SizedBox(
@@ -121,16 +124,26 @@ class _SignInPageState extends State<SignInPage> {
                             children: [
                               SocialIcon(
                                 icon: FontAwesomeIcons.google,
-                                onTap: () {},
+                                onTap: () async {
+                                  try {
+                                    UserCredential user =
+                                        await signInWithGoogle();
+                                    if (user != null) {
+                                      Navigator.pushNamed(context, "/home");
+                                    }
+                                  } catch (e) {
+                                    print(e);
+                                  }
+                                },
                                 size: 20,
                               ),
-                              SocialIcon(
-                                icon: FontAwesomeIcons.facebook,
-                                onTap: () {},
-                                size: 20,
-                              ),
+                              // SocialIcon(
+                              //   icon: FontAwesomeIcons.facebook,
+                              //   onTap: () {},
+                              //   size: 20,
+                              // ),
                             ],
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -169,6 +182,10 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
+  SnackBar mySnackBar(Widget text) {
+    return SnackBar(content: text);
+  }
+
   Future<void> signIn() async {
     final pass = _pass.text.trim();
     final mail = _mail.text.trim();
@@ -185,8 +202,13 @@ class _SignInPageState extends State<SignInPage> {
           borderColor_1 = Colors.red;
         });
       } else if (e.code == "wrong-password") {
+        ScaffoldMessenger.of(context).showSnackBar(
+            mySnackBar(const Text("user not found or wrong password")));
         setState(() {
           borderColor_2 = Colors.red;
+          if (_mail.text.isEmpty) {
+            borderColor_1 = Colors.red;
+          }
         });
       } else if (e.code == "invalid-email") {
         setState(() {

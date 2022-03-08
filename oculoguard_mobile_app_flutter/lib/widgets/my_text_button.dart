@@ -24,11 +24,11 @@ class MyTextButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(18),
       ),
       child: TextButton(
-        style: ButtonStyle(
-          overlayColor: MaterialStateProperty.resolveWith(
-            (states) => Colors.black12,
-          ),
-        ),
+        // style: ButtonStyle(
+        //   overlayColor: MaterialStateProperty.resolveWith(
+        //     (states) => Colors.black12,
+        //   ),
+        // ),
         onPressed: () {
           onTap();
         },
