@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
       ),
       home: WelcomePage(),
-      initialRoute: "/",
+      initialRoute: "/home",
       onGenerateRoute: RouteGenerator.generateRoute,
     );
   }

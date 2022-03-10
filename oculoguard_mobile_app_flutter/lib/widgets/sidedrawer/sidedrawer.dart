@@ -18,7 +18,7 @@ class SideDrawer extends StatelessWidget {
             CircleAvatar(
               backgroundImage: NetworkImage(
                 user!.photoURL!,
-                scale: 0.1,
+                scale: 1,
               ),
               radius: size.width / 4,
             ),

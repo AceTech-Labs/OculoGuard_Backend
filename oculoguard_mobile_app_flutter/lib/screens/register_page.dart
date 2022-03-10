@@ -202,6 +202,8 @@ class _RegisterPageState extends State<RegisterPage> {
             _passAgain.clear();
           });
         } else if (code == "email-already-in-use") {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(bar(const Text("Email already in use")));
           setState(() {
             borderColor_1 = Colors.red;
             _mail.clear();
