@@ -1,5 +1,14 @@
 import React from "react";
 
-export default function About() {
-  return <div>About</div>;
+const About = ({ about }) => {
+  return <>About Page</>;
+};
+
+export function getStaticProps() {
+  fetch("sayMyName.google.com").then((data) => {});
+  return {
+    props: data,
+  };
 }
+
+export default About;

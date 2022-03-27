@@ -10,6 +10,11 @@
       "StackName": "amplify-oculoguardwebapp-dev-92249",
       "StackId": "arn:aws:cloudformation:us-east-1:910872842273:stack/amplify-oculoguardwebapp-dev-92249/62d6bf30-ad81-11ec-af74-125e8cda30d5",
       "AmplifyAppId": "d17ce93ci5en7v"
+    },
+    "categories": {
+      "auth": {
+        "oculoguardwebapp32f13fe5": {}
+      }
     }
   }
 }

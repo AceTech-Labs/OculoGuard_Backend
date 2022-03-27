@@ -1,4 +1,3 @@
-import {} from "firebaseui";
 import { useState } from "react";
 
 const AuthUI = () => {
