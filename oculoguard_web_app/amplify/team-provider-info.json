@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-oculoguardwebapp-dev-92249-authRole",
+      "UnauthRoleArn": "arn:aws:iam::910872842273:role/amplify-oculoguardwebapp-dev-92249-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::910872842273:role/amplify-oculoguardwebapp-dev-92249-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-oculoguardwebapp-dev-92249-deployment",
+      "UnauthRoleName": "amplify-oculoguardwebapp-dev-92249-unauthRole",
+      "StackName": "amplify-oculoguardwebapp-dev-92249",
+      "StackId": "arn:aws:cloudformation:us-east-1:910872842273:stack/amplify-oculoguardwebapp-dev-92249/62d6bf30-ad81-11ec-af74-125e8cda30d5",
+      "AmplifyAppId": "d17ce93ci5en7v"
+    }
+  }
+}
