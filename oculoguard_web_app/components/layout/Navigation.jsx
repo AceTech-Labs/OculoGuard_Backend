@@ -3,15 +3,15 @@ import Link from "next/link";
 const Navigation = () => {
   return (
     <nav>
-      <ul>
+      <ul className="">
         <li>
-          <Link>Home</Link>
+          <Link href={"/"}>Home</Link>
         </li>
         <li>
-          <Link>Records</Link>
+          <Link href={"/records"}>Records</Link>
         </li>
         <li>
-          <Link>About</Link>
+          <Link href={"/about"}>About</Link>
         </li>
       </ul>
     </nav>
