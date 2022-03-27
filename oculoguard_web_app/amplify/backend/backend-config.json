@@ -1,6 +1,6 @@
 {
   "auth": {
-    "oculoguardwebapp32f13fe5": {
+    "oculoguard2251e9ec": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],

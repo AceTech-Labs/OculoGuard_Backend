@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "oculoguardwebapp32f13fe5_identitypool_32f13fe5",
+    "identityPoolName": "oculoguard2251e9ec_identitypool_2251e9ec",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "oculog32f13fe5",
-    "userPoolName": "oculoguardwebapp32f13fe5_userpool_32f13fe5",
+    "resourceNameTruncated": "oculog2251e9ec",
+    "userPoolName": "oculoguard2251e9ec_userpool_2251e9ec",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -31,10 +31,10 @@
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "oculog32f13fe5_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "oculog2251e9ec_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "32f13fe5",
-    "resourceName": "oculoguardwebapp32f13fe5",
+    "sharedId": "2251e9ec",
+    "resourceName": "oculoguard2251e9ec",
     "authSelections": "identityPoolAndUserPool",
     "useDefault": "default",
     "userPoolGroupList": [],
