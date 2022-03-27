@@ -9,9 +9,7 @@ Amplify.configure({ ...awsmobile, ssr: true });
 function MyApp({ Component, pageProps }) {
   return (
     <AmplifyAuthenticator>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <Component {...pageProps} />
     </AmplifyAuthenticator>
   );
 }
