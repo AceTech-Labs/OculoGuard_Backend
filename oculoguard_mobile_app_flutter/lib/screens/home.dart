@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'custom_appbar.dart';
 import 'package:oculoguard_mobile_app_flutter/widgets/sidedrawer/sidedrawer.dart';
@@ -13,8 +12,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   void initState() {
-    User? user = FirebaseAuth.instance.currentUser;
-    print(user);
     super.initState();
   }
 

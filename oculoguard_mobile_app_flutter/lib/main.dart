@@ -1,13 +1,24 @@
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'constants.dart';
 import './screens/screen.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'routes/router.dart';
+import 'amplifyconfiguration.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await configureAmplify();
   runApp(MyApp());
+}
+
+Future<void> configureAmplify() async {
+  Amplify.addPlugins([AmplifyAuthCognito()]);
+  try {
+    await Amplify.configure(amplifyconfig);
+  } catch (e) {
+    print(e);
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -22,7 +33,7 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
       ),
       home: WelcomePage(),
-      initialRoute: "/home",
+      initialRoute: "/",
       onGenerateRoute: RouteGenerator.generateRoute,
     );
   }

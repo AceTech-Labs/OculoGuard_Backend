@@ -1,4 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:oculoguard_mobile_app_flutter/widgets/social_media_Icon.dart';
@@ -183,32 +184,16 @@ class _RegisterPageState extends State<RegisterPage> {
   Future<void> signUp() async {
     final mail = _mail.text.trim();
 
-    if (_pass.text.trim() == _passAgain.text.trim() &&
-        (_mail.text.isNotEmpty)) {
+    if (_pass.text.trim() == _passAgain.text.trim()) {
       try {
-        await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(
-                email: mail, password: _pass.text.trim())
-            .then((value) => Navigator.pushNamed(context, "/home"));
-      } on FirebaseAuthException catch (e) {
-        final code = e.code;
-        if (code == "weak-password") {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(bar(const Text("Weak Password")));
-          setState(() {
-            borderColor_2 = Colors.red;
-            borderColor_3 = Colors.red;
-            _pass.clear();
-            _passAgain.clear();
-          });
-        } else if (code == "email-already-in-use") {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(bar(const Text("Email already in use")));
-          setState(() {
-            borderColor_1 = Colors.red;
-            _mail.clear();
-          });
-        }
+        await Amplify.Auth.signUp(
+            username: mail,
+            password: _pass.text.trim(),
+            options: CognitoSignUpOptions(
+              userAttributes: {
+                CognitoUserAttributeKey.email: mail,
+              },
+            ));
       } catch (e) {
         print(e);
       }
@@ -216,8 +201,6 @@ class _RegisterPageState extends State<RegisterPage> {
       setState(() {
         borderColor_2 = Colors.red;
         borderColor_3 = Colors.red;
-        _pass.clear();
-        _passAgain.clear();
       });
     }
   }

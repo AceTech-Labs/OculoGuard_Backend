@@ -1,8 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:oculoguard_mobile_app_flutter/providers/google.dart';
 import 'package:oculoguard_mobile_app_flutter/widgets/social_media_Icon.dart';
 import '../constants.dart';
 import '../screens/screen.dart';
@@ -103,7 +101,7 @@ class _SignInPageState extends State<SignInPage> {
                           MyTextButton(
                             buttonName: 'Sign In',
                             onTap: () async {
-                              signIn();
+                              // signIn();
                             },
                             bgColor: Colors.white,
                             textColor: Colors.black87,
@@ -125,15 +123,15 @@ class _SignInPageState extends State<SignInPage> {
                               SocialIcon(
                                 icon: FontAwesomeIcons.google,
                                 onTap: () async {
-                                  try {
-                                    UserCredential user =
-                                        await signInWithGoogle();
-                                    if (user != null) {
-                                      Navigator.pushNamed(context, "/home");
-                                    }
-                                  } catch (e) {
-                                    print(e);
-                                  }
+                                  // try {
+                                  //   UserCredential user =
+                                  //       await signInWithGoogle();
+                                  //   if (user != null) {
+                                  //     Navigator.pushNamed(context, "/home");
+                                  //   }
+                                  // } catch (e) {
+                                  //   print(e);
+                                  // }
                                 },
                                 size: 20,
                               ),
@@ -186,39 +184,39 @@ class _SignInPageState extends State<SignInPage> {
     return SnackBar(content: text);
   }
 
-  Future<void> signIn() async {
-    final pass = _pass.text.trim();
-    final mail = _mail.text.trim();
-    try {
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: mail, password: pass)
-          .then((value) {
-        Navigator.pushNamed(context, "/home");
-      });
-    } on FirebaseAuthException catch (e) {
-      print(e);
-      if (e.code == "user-not-found") {
-        setState(() {
-          borderColor_1 = Colors.red;
-        });
-      } else if (e.code == "wrong-password") {
-        ScaffoldMessenger.of(context).showSnackBar(
-            mySnackBar(const Text("user not found or wrong password")));
-        setState(() {
-          borderColor_2 = Colors.red;
-          if (_mail.text.isEmpty) {
-            borderColor_1 = Colors.red;
-          }
-        });
-      } else if (e.code == "invalid-email") {
-        setState(() {
-          borderColor_1 = Colors.red;
-        });
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
+  // Future<void> signIn() async {
+  //   final pass = _pass.text.trim();
+  //   final mail = _mail.text.trim();
+  //   try {
+  //     await FirebaseAuth.instance
+  //         .signInWithEmailAndPassword(email: mail, password: pass)
+  //         .then((value) {
+  //       Navigator.pushNamed(context, "/home");
+  //     });
+  //   } on FirebaseAuthException catch (e) {
+  //     print(e);
+  //     if (e.code == "user-not-found") {
+  //       setState(() {
+  //         borderColor_1 = Colors.red;
+  //       });
+  //     } else if (e.code == "wrong-password") {
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //           mySnackBar(const Text("user not found or wrong password")));
+  //       setState(() {
+  //         borderColor_2 = Colors.red;
+  //         if (_mail.text.isEmpty) {
+  //           borderColor_1 = Colors.red;
+  //         }
+  //       });
+  //     } else if (e.code == "invalid-email") {
+  //       setState(() {
+  //         borderColor_1 = Colors.red;
+  //       });
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
 
   void setDefault() {
     borderColor_1 = Colors.white;
