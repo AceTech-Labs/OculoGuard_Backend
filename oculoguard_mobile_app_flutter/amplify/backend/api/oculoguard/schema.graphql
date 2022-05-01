@@ -1,0 +1,21 @@
+input AMPLIFY {
+  globalAuthRule: AuthRule = {allow: public}
+}
+
+type Record @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  userID: ID! @index(name: "byUser")
+}
+
+type User @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String
+  ophthalmologistID: ID! @index(name: "byOphthalmologist")
+  Records: [Record] @hasMany(indexName: "byUser", fields: ["id"])
+}
+
+type Ophthalmologist @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String
+  Users: [User] @hasMany(indexName: "byOphthalmologist", fields: ["id"])
+} 

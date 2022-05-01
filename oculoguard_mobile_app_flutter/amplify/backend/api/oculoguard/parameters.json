@@ -1,0 +1,6 @@
+{
+  "AppSyncApiName": "oculoguard",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthModeLastUpdated": "2022-04-03T16:53:55.243Z"
+}
