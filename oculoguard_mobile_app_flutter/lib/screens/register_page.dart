@@ -123,7 +123,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: const [
                               Text(
-                                "Or Sign up with",
+                                "Or Continue up with",
                                 style: kBodyText,
                               )
                             ],
@@ -136,14 +136,16 @@ class _RegisterPageState extends State<RegisterPage> {
                             children: [
                               SocialIcon(
                                 icon: FontAwesomeIcons.google,
-                                onTap: () {},
+                                onTap: () async {
+                                  try {
+                                    await Amplify.Auth.signInWithWebUI(
+                                        provider: AuthProvider.google);
+                                  } on AmplifyException catch (e) {
+                                    print(e);
+                                  }
+                                },
                                 size: 20,
                               ),
-                              // SocialIcon(
-                              //   icon: Icons.phone,
-                              //   onTap: () {},
-                              //   size: 20,
-                              // ),
                             ],
                           )
                         ],

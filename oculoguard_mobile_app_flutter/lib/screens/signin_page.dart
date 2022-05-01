@@ -1,3 +1,5 @@
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -16,8 +18,25 @@ class _SignInPageState extends State<SignInPage> {
   Color borderColor_1 = Colors.white;
   Color borderColor_2 = Colors.white;
 
-  final TextEditingController _mail = TextEditingController();
+  final TextEditingController _userName = TextEditingController();
   final TextEditingController _pass = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // checkUser();
+  }
+
+  Future<bool> checkUser() async {
+    var user = await Amplify.Auth.getCurrentUser();
+    print(user.userId);
+    if (user == null) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,8 +84,8 @@ class _SignInPageState extends State<SignInPage> {
                           ),
                           MyTextField(
                             boderColor: borderColor_1,
-                            controller: _mail,
-                            hintText: 'Phone, email or username',
+                            controller: _userName,
+                            hintText: 'UserName',
                             inputType: TextInputType.text,
                           ),
                           MyPasswordField(
@@ -101,7 +120,15 @@ class _SignInPageState extends State<SignInPage> {
                           MyTextButton(
                             buttonName: 'Sign In',
                             onTap: () async {
-                              // signIn();
+                              signIn();
+                            },
+                            bgColor: Colors.white,
+                            textColor: Colors.black87,
+                          ),
+                          MyTextButton(
+                            buttonName: 'Sign Out',
+                            onTap: () async {
+                              await Amplify.Auth.signOut();
                             },
                             bgColor: Colors.white,
                             textColor: Colors.black87,
@@ -123,23 +150,15 @@ class _SignInPageState extends State<SignInPage> {
                               SocialIcon(
                                 icon: FontAwesomeIcons.google,
                                 onTap: () async {
-                                  // try {
-                                  //   UserCredential user =
-                                  //       await signInWithGoogle();
-                                  //   if (user != null) {
-                                  //     Navigator.pushNamed(context, "/home");
-                                  //   }
-                                  // } catch (e) {
-                                  //   print(e);
-                                  // }
+                                  try {
+                                    await Amplify.Auth.signInWithWebUI(
+                                        provider: AuthProvider.google);
+                                  } on AuthException catch (e) {
+                                    print(e);
+                                  }
                                 },
                                 size: 20,
                               ),
-                              // SocialIcon(
-                              //   icon: FontAwesomeIcons.facebook,
-                              //   onTap: () {},
-                              //   size: 20,
-                              // ),
                             ],
                           ),
                         ],
@@ -184,39 +203,42 @@ class _SignInPageState extends State<SignInPage> {
     return SnackBar(content: text);
   }
 
-  // Future<void> signIn() async {
-  //   final pass = _pass.text.trim();
-  //   final mail = _mail.text.trim();
-  //   try {
-  //     await FirebaseAuth.instance
-  //         .signInWithEmailAndPassword(email: mail, password: pass)
-  //         .then((value) {
-  //       Navigator.pushNamed(context, "/home");
-  //     });
-  //   } on FirebaseAuthException catch (e) {
-  //     print(e);
-  //     if (e.code == "user-not-found") {
-  //       setState(() {
-  //         borderColor_1 = Colors.red;
-  //       });
-  //     } else if (e.code == "wrong-password") {
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //           mySnackBar(const Text("user not found or wrong password")));
-  //       setState(() {
-  //         borderColor_2 = Colors.red;
-  //         if (_mail.text.isEmpty) {
-  //           borderColor_1 = Colors.red;
-  //         }
-  //       });
-  //     } else if (e.code == "invalid-email") {
-  //       setState(() {
-  //         borderColor_1 = Colors.red;
-  //       });
-  //     }
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  // }
+  void showSnackaBar(SnackBar bar) {
+    Scaffold.of(context).showSnackBar(bar);
+  }
+
+  Future<void> signIn() async {
+    final pass = _pass.text.trim();
+    final user = _userName.text.trim();
+    try {
+      await Amplify.Auth.signIn(username: user, password: pass);
+      Navigator.of(context).pushNamed("/home");
+    } on AuthException catch (e) {
+      print(e.message);
+      if (e.message == "User does not exist.") {
+        setState(() {
+          borderColor_1 = Colors.red;
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(e.recoverySuggestion!)));
+        });
+      } else if (e.message == "Username is required to signIn") {
+        ScaffoldMessenger.of(context).showSnackBar(
+            mySnackBar(const Text("user not found or wrong password")));
+        setState(() {
+          borderColor_2 = Colors.red;
+          if (_userName.text.isEmpty) {
+            borderColor_1 = Colors.red;
+          }
+        });
+      } else if (e.message == "invalid-email") {
+        setState(() {
+          borderColor_1 = Colors.red;
+        });
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
   void setDefault() {
     borderColor_1 = Colors.white;
