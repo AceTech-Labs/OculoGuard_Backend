@@ -22,19 +22,49 @@ Future<void> configureAmplify() async {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'OculoGuard',
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: kBackgroundColor,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        brightness: Brightness.dark,
-      ),
-      home: WelcomePage(),
-      initialRoute: "/",
-      onGenerateRoute: RouteGenerator.generateRoute,
-    );
+    // return MaterialApp(
+    // debugShowCheckedModeBanner: false,
+    // title: 'OculoGuard',
+    // theme: ThemeData.dark().copyWith(
+    //   scaffoldBackgroundColor: kBackgroundColor,
+    //   visualDensity: VisualDensity.adaptivePlatformDensity,
+    //   brightness: Brightness.dark,
+    // ),
+    // initialRoute: "/home",
+    // onGenerateRoute: RouteGenerator.generateRoute,
+    // );
+
+    return FutureBuilder<AuthUser>(
+        future: Amplify.Auth.getCurrentUser(),
+        builder: (BuildContext context, AsyncSnapshot<AuthUser> snapshot) {
+          if (snapshot.hasError) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'OculoGuard',
+              theme: ThemeData.dark().copyWith(
+                scaffoldBackgroundColor: kBackgroundColor,
+                visualDensity: VisualDensity.adaptivePlatformDensity,
+                brightness: Brightness.dark,
+              ),
+              initialRoute: "/",
+              onGenerateRoute: RouteGenerator.generateRoute,
+            );
+          }
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'OculoGuard',
+            theme: ThemeData.dark().copyWith(
+              scaffoldBackgroundColor: kBackgroundColor,
+              visualDensity: VisualDensity.adaptivePlatformDensity,
+              brightness: Brightness.dark,
+            ),
+            initialRoute: "/home",
+            onGenerateRoute: RouteGenerator.generateRoute,
+          );
+        });
   }
 }
