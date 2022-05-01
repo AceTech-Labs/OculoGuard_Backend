@@ -32,7 +32,7 @@ class WelcomePage extends StatelessWidget {
                       height: 20,
                     ),
                     const Text(
-                      "Oculo Guard",
+                      "OcculoGuard",
                       style: kHeadline,
                       textAlign: TextAlign.center,
                     ),
