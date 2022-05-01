@@ -8,9 +8,13 @@ Widget customScrollAppBar(BuildContext context) => CustomScrollView(
           automaticallyImplyLeading: false,
           backgroundColor: Colors.transparent,
           elevation: 0,
-          title: Text("OculoGuard"),
+          title: const Text("OculoGuard"),
           expandedHeight: 150,
-          flexibleSpace: Placeholder(),
+          // flexibleSpace: Placeholder(),
+          leading: IconButton(
+            icon: const Icon(Icons.menu),
+            onPressed: () => {Scaffold.of(context).openDrawer()},
+          ),
         ),
         SliverList(
           delegate: SliverChildBuilderDelegate(
@@ -27,29 +31,5 @@ Widget customScrollAppBar(BuildContext context) => CustomScrollView(
         )
       ],
     );
-
-class SliverMe extends SingleChildRenderObjectWidget {
-  const SliverMe({required Key key, required Widget child})
-      : super(child: child, key: key);
-
-  @override
-  RenderObject createRenderObject(BuildContext context) {
-    return RenderSliverMe();
-  }
-}
-
-class RenderSliverMe extends RenderSliverToBoxAdapter {
-  RenderSliverMe({
-    RenderBox? child,
-  }) : super(child: child);
-
-  @override
-  void perfomLayout() {
-    if (child == null) {
-      geometry = SliverGeometry.zero;
-      return;
-    }
-  }
-}
 
 List<String> names = ["Thidas", "Sankaja", "Jayawardane", "Don", "Blue", "red"];
