@@ -17,7 +17,7 @@ from tensorflow.keras.models import Model
 
 
 dict={0:'Glaucoma_Positive',1:'Macular_Edema',2:'Normal',3:'dr_Mild',4:'dr_Moderate',5:'dr_Proliferate',6:'dr_Severe'}
-model_1=('C:/Users/Harrisagar/Desktop/FinalClassification/Final_Prediction/Model 01 New/models/model.h5')
+model_1=('./model.h5')
 mobile = tf.keras.applications.mobilenet.MobileNet()
 
 
@@ -39,7 +39,7 @@ for layer in model_2.layers[:-23]:
 
 
 model_1.compile(optimizer=Adam(learning_rate=0.0003), loss='categorical_crossentropy', metrics=['accuracy'])
-model_1.load_weights('C:/Users/Harrisagar/Desktop/FinalClassification/Final_Prediction/Model 01 New/models/model.h5')
+model_1.load_weights('./model.h5')
 
 
 

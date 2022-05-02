@@ -13,7 +13,7 @@ from tensorflow.keras.models import Model
 
 
 dict={0:'DR',1:'Glaucoma_Positive',2:'Macular_Edema',3:'Normal'}
-model_1=("C:/Users/Harrisagar/Desktop/FinalClassification/Final_Prediction/Model 02 New/models/model_final.h5")
+model_1=("./model_final.h5")
 mobile = tf.keras.applications.mobilenet.MobileNet()
 x = mobile.layers[-6].output
 GVP =  tf.keras.layers.GlobalAveragePooling2D()(x)
@@ -25,7 +25,7 @@ for layer in model_1.layers[:-23]:
 for layer in model_2.layers[:-23]:
     layer.trainable = False
 model_1.compile(optimizer=Adam(learning_rate=0.0003), loss='categorical_crossentropy', metrics=['accuracy'])
-model_1.load_weights("C:/Users/Harrisagar/Desktop/FinalClassification/Final_Prediction/Model 02 New/models/model_final.h5")
+model_1.load_weights("./model_final.h5")
 root = tk.Tk()
 root.withdraw()
 img_path = filedialog.askopenfilename()
