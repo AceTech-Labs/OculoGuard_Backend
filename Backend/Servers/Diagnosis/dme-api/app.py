@@ -14,12 +14,11 @@ from PIL import Image
 app = Flask(__name__)
 
 
-@app.route('/hello')
-
+@app.route('/hello',methods=['GET','POST'])
 def hello():
     return "Hello World"
 
-@app.route('https://git.heroku.com/dme-glau.git', methods = ['GET', 'POST'])
+@app.route('/diagnosis/dme-glau', methods = ['GET', 'POST'])
 def dme_diagnosis():
     if request.method == 'POST':    
         dict={0:'Glaucoma_Positive',1:'Macular_Edema',2:'Normal',3:'dr_Mild',4:'dr_Moderate',5:'dr_Proliferate',6:'dr_Severe'}
