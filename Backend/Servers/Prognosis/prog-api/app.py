@@ -71,7 +71,7 @@ def dr_prognosis():
         result=""
         a=sum(pr[0][-4:] / sum(pr[0][-4:]) * np.array([10,7,4,1]))
 
-        result = "\n\nYears =","{:.2f}".format(a)
+        result = "Years =""{:.2f}".format(a)
 
         
 

@@ -48,9 +48,9 @@ def dr_diagnosis():
 
         result=""
         if dict[pr1] == ("DR"):
-            result=="DR Positive"
+            result="DR Positive"
         else:
-            result =="DR Negative"
+            result ="DR Negative"
 
 
 
