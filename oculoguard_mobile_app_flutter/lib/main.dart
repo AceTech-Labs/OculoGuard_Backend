@@ -26,18 +26,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return MaterialApp(
-    // debugShowCheckedModeBanner: false,
-    // title: 'OculoGuard',
-    // theme: ThemeData.dark().copyWith(
-    //   scaffoldBackgroundColor: kBackgroundColor,
-    //   visualDensity: VisualDensity.adaptivePlatformDensity,
-    //   brightness: Brightness.dark,
-    // ),
-    // initialRoute: "/home",
-    // onGenerateRoute: RouteGenerator.generateRoute,
-    // );
-
     return FutureBuilder<AuthUser>(
         future: Amplify.Auth.getCurrentUser(),
         builder: (BuildContext context, AsyncSnapshot<AuthUser> snapshot) {
