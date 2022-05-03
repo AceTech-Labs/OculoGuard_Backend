@@ -21,7 +21,7 @@ def hello():
 def dr_diagnosis():
     if request.method == 'POST':
         dict={0:'DR',1:'Glaucoma_Positive',2:'Macular_Edema',3:'Normal'}
-        model_1=("C:/Users/Harrisagar/Desktop/FinalClassification/Final_Prediction/Model 02 New/models/model_final.h5")
+        model_1=("./model_final.h5")
         mobile = tf.keras.applications.mobilenet.MobileNet()
         x = mobile.layers[-6].output
         GVP =  tf.keras.layers.GlobalAveragePooling2D()(x)
